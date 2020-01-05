@@ -22,8 +22,6 @@
   <exec_depend>gazebo_ros</exec_depend>
   <exec_depend>robot_state_publisher</exec_depend>
   <exec_depend>nodelet</exec_depend>
-  <exec_depend>turtlebot_description</exec_depend>
-  <exec_depend>kobuki_description</exec_depend>
   <exec_depend>xacro</exec_depend>
 
   <export>
