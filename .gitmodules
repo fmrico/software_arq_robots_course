@@ -4,3 +4,6 @@
 [submodule "thirdparty/kobuki"]
 	path = thirdparty/kobuki
 	url = https://github.com/yujinrobot/kobuki.git
+[submodule "thirdparty/rocon_app_platform"]
+	path = thirdparty/rocon_app_platform
+	url = https://github.com/robotics-in-concert/rocon_app_platform.git
