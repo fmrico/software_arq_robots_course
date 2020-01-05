@@ -1,0 +1,4 @@
+<launch>
+	<node pkg="basics_ros" type="nodo_pub" name="Publisher" output="screen"/>
+	<node pkg="basics_ros" type="nodo_sub_obj" name="Subscriber" output="screen"/> 
+</launch>

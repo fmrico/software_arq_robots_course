@@ -1,0 +1,3 @@
+[submodule "thirdparty/hokuyo_node"]
+	path = thirdparty/hokuyo_node
+	url = https://github.com/ros-drivers/hokuyo_node.git

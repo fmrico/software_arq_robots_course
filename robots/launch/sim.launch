@@ -1,0 +1,26 @@
+
+<launch>
+
+  <arg name="world_name" default="$(find robots)/worlds/GrannyAnnie.world"/>
+  <arg name="posx" value="0.0"/>
+  <arg name="posy" value="0.0"/>
+  <arg name="posYaw" value="3.1415"/>
+
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="use_sim_time" value="true"/>
+    <arg name="debug" value="false"/>
+    <arg name="world_name" value="$(arg world_name)"/>
+  </include>
+
+  <include file="$(find robots)/launch/includes/robot.launch.xml">
+    <arg name="posx" value="$(arg posx)"/>
+    <arg name="posy" value="$(arg posy)"/>
+    <arg name="posYaw" value="$(arg posYaw)"/>
+  </include>
+
+
+  <node pkg="laser_filters" type="scan_to_scan_filter_chain" name="laser_filter">
+    <rosparam command="load" file="$(find robots)/definition/sim/my_laser_config.yaml" />
+  </node>
+
+</launch>
