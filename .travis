@@ -57,3 +57,4 @@ script:
   - catkin_make $( [ -f $CATKIN_OPTIONS ] && cat $CATKIN_OPTIONS )
   - source devel/setup.bash
   - catkin_make run_tests && catkin_test_results && catkin_make roslint
+  

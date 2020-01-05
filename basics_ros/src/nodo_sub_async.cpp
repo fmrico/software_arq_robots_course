@@ -17,7 +17,7 @@
 
 void messageCallback(const std_msgs::Int64::ConstPtr& msg)
 {
-  ROS_INFO("Message: [%ld] ", msg->data);
+  ROS_INFO("Message: [%ld]", msg->data);
 }
 
 int main(int argc, char **argv)
