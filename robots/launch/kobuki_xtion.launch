@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<launch>
+
+  <include file="$(find openni2_launch)/launch/openni2.launch"/>
+  <include file="$(find kobuki_node)/launch/robot_with_tf.launch"/>
+
+  <node pkg="tf" type="static_transform_publisher" name="bf2camera"
+    args="0.11 0.0 0.2 0 0 0 base_footprint camera_link 100"/>
+
+</launch>

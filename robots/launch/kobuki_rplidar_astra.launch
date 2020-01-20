@@ -3,7 +3,7 @@
 
  <arg name="laser_serial_port" default="/dev/ttyUSB0"/>
 
-  <!--<include file="$(find openni2_launch)/launch/openni2.launch"/>-->
+  <include file="$(find astra_camera)/launch/astra.launch"/>
   <include file="$(find kobuki_node)/launch/robot_with_tf.launch"/>
 
   <node name="rplidarNode"          pkg="rplidar_ros"  type="rplidarNode" output="screen">

@@ -7,3 +7,6 @@
 [submodule "thirdparty/rocon_app_platform"]
 	path = thirdparty/rocon_app_platform
 	url = https://github.com/robotics-in-concert/rocon_app_platform.git
+[submodule "thirdparty/ros_astra_camera"]
+	path = thirdparty/ros_astra_camera
+	url = https://github.com/orbbec/ros_astra_camera

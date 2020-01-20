@@ -1,10 +1,14 @@
 <?xml version="1.0" ?>
 <launch>
 
+  <arg name="laser_serial_port" default="/dev/ttyUSB0"/>
+
   <include file="$(find openni2_launch)/launch/openni2.launch"/>
   <include file="$(find kobuki_node)/launch/robot_with_tf.launch"/>
 
-  <node name="hokuyo_node"          pkg="hokuyo_node"  type="hokuyo_node" output="screen"/>
+  <node name="hokuyo_node"          pkg="hokuyo_node"  type="hokuyo_node" output="screen">
+    <param name="port"            type="string"   value="$(arg laser_serial_port)"/>
+  </node>
 
   <node pkg="laser_filters" type="scan_to_scan_filter_chain" name="laser_filter">
     <rosparam command="load" file="$(find robots)/definition/robot/my_laser_config.yaml" />

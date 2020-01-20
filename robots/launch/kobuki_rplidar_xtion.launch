@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<launch>
+
+ <arg name="laser_serial_port" default="/dev/ttyUSB0"/>
+
+  <include file="$(find openni2_launch)/launch/openni2.launch"/>
+  <include file="$(find kobuki_node)/launch/robot_with_tf.launch"/>
+
+  <node name="rplidarNode"          pkg="rplidar_ros"  type="rplidarNode" output="screen">
+  	<param name="serial_port"         type="string" value="$(arg laser_serial_port)"/>
+  	<param name="serial_baudrate"     type="int"    value="115200"/>
+  	<param name="frame_id"            type="string" value="laser"/>
+  	<param name="inverted"            type="bool"   value="false"/>
+  	<param name="angle_compensate"    type="bool"   value="true"/>
+  </node>
+
+  <node pkg="laser_filters" type="scan_to_scan_filter_chain" name="laser_filter">
+    <rosparam command="load" file="$(find robots)/definition/robot/my_laser_config.yaml" />
+  </node>
+
+  <node pkg="tf" type="static_transform_publisher" name="bf2camera"
+    args="0.11 0.0 0.2 0 0 0 base_footprint camera_link 100"/>
+  <node pkg="tf" type="static_transform_publisher" name="bf2laser"
+    args="0 0.0 0.41 3.14 0 3.14 base_footprint laser 100"/>
+
+</launch>
