@@ -16,6 +16,8 @@
   <exec_depend>openni2_launch</exec_depend>
   <exec_depend>tf</exec_depend>
   <exec_depend>kobuki_node</exec_depend>
+  <exec_depend>kobuki_gazebo</exec_depend>
+  <exec_depend>kobuki_keyop</exec_depend>
   <exec_depend>hokuyo_node</exec_depend>
   <exec_depend>laser_filters</exec_depend>
   <exec_depend>rplidar_ros</exec_depend>
