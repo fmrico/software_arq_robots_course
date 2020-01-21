@@ -10,3 +10,6 @@
 [submodule "thirdparty/ros_astra_camera"]
 	path = thirdparty/ros_astra_camera
 	url = https://github.com/orbbec/ros_astra_camera
+[submodule "thirdparty/kobuki_desktop"]
+	path = thirdparty/kobuki_desktop
+	url = https://github.com/yujinrobot/kobuki_desktop
