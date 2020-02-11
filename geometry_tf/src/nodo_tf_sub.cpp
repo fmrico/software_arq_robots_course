@@ -113,7 +113,8 @@ int main(int argc, char **argv)
       ROS_ERROR("%s", error.c_str());
     }
 
-    if (buffer.canTransform("object", "odom", ros::Time(0), ros::Duration(0.1), &error)){
+    if (buffer.canTransform("object", "odom", ros::Time(0), ros::Duration(0.1), &error))
+    {
       obj2odom_msg = buffer.lookupTransform("object", "odom", ros::Time(0));
 
       tf2::fromMsg(obj2odom_msg, obj2odom);
@@ -138,8 +139,8 @@ int main(int argc, char **argv)
       bf2obj.getOrigin().x(), bf2obj.getOrigin().y(), bf2obj.getOrigin().z(),
       (ros::Time::now()-odom2obj.stamp_).toSec());
 
-    tf2::Vector3 p_obj(1.0,0.0, 0.0);
-    tf2::Vector3 p_bf= geometry_tf::transform_point(p_obj, bf2obj);
+    tf2::Vector3 p_obj(1.0, 0.0, 0.0);
+    tf2::Vector3 p_bf = geometry_tf::transform_point(p_obj, bf2obj);
 
     ROS_INFO("Point [%lf, %lf, %lf] in object frame is [%lf, %lf, %lf] in basefootprint",
       p_obj.x(), p_obj.y(), p_obj.z(),
