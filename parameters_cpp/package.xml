@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>parameters_cpp</name>
+ <version>0.0.1</version>
+  <description>Paquete parameters</description>
+
+  <maintainer email="fmrico@gmail.com">paco</maintainer>
+  <license>GPLv3</license>
+
+  <author email="fmrico@gmail.com">Francisco Martín Rico</author> 
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>roscpp</build_depend>
+  <exec_depend>roscpp</exec_depend>
+
+  <export>
+  </export>
+</package>

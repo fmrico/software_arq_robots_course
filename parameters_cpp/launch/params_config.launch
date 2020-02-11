@@ -1,0 +1,6 @@
+<launch>
+
+	<node pkg="parameters_cpp" type="nodo_parameter_reader" name="parameter_reader" output="screen">
+		<rosparam command="load" file="$(find parameters_cpp)/config/config_1.yaml"/>
+	</node>
+</launch>

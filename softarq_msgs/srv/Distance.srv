@@ -1,0 +1,4 @@
+softarq_msgs/Point a
+softarq_msgs/Point b
+---
+float64 distance

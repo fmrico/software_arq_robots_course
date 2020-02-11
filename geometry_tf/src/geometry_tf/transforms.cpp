@@ -17,7 +17,12 @@
 
 #include "geometry_tf/transforms.h"
 
+namespace geometry_tf 
+{
+
 tf2::Vector3 transform_point(const tf2::Vector3 & input_point, const tf2::Transform & transform)
 {
   return  transform * input_point;
 }
+
+}  // namespace geometry_tf

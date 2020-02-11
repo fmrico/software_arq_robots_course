@@ -1,0 +1,7 @@
+<launch>
+
+	<node pkg="parameters_cpp" type="nodo_parameter_reader" name="parameter_reader" output="screen">
+		<param name="name" value="Juan"/>
+		<param name="greeting" value="Bonjour!!!"/>
+	</node>
+</launch>
