@@ -3,7 +3,7 @@
 -->
 <launch>
   <include file="$(find navigation)/launch/includes/velocity_smoother.launch.xml"/>
-  <!--include file="$(find navigation)/launch/includes/safety_controller.launch.xml"/-->
+  <include file="$(find navigation)/launch/includes/safety_controller.launch.xml"/>
   
   <arg name="odom_frame_id"   default="odom"/>
   <arg name="base_frame_id"   default="base_footprint"/>

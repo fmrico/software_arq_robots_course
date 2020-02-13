@@ -2,10 +2,11 @@
 <package>
   <name>navigation</name>
   <version>0.0.0</version>
-  <description>Paquete de introducción de navigation</description>
+  <description>Paquete de introducción a navegación</description>
 
   <maintainer email="fmrico@gmail.com">paco</maintainer>
   <license>GPLv3</license>
+  <url type="website">http://www.urjc.es/estudios/titulos-propios/1701-curso-superior-universitario-en-programacion-de-robots-con-ros</url>
 
   <author email="fmrico@gmail.com">Francisco Martín Rico</author> 
 
@@ -22,7 +23,7 @@
   <run_depend>tf</run_depend>
   <run_depend>pcl_ros</run_depend>
   <run_depend>nav_core</run_depend>
+  
 
-  <export>
-  </export>
+
 </package>

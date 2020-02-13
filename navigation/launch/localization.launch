@@ -1,9 +1,9 @@
 <launch>
 
-  <arg name="custom_param_file" default="$(find navigation)/param/dummy.yaml"/>
+  <arg name="custom_param_file" default="$(find turtlebot_navigation)/param/dummy.yaml"/>
   
   <!-- Map server -->
-  <arg name="map_file" default="$(find navigation)/maps/GrannieAnnie.yaml"/>
+  <arg name="map_file" default="$(find navigation)/maps/static_map.yaml"/>
   <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
 
   <arg name="initial_pose_x" default="0.0"/>
