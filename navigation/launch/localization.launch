@@ -1,0 +1,19 @@
+<launch>
+
+  <arg name="custom_param_file" default="$(find navigation)/param/dummy.yaml"/>
+  
+  <!-- Map server -->
+  <arg name="map_file" default="$(find navigation)/maps/GrannieAnnie.yaml"/>
+  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
+
+  <arg name="initial_pose_x" default="0.0"/>
+  <arg name="initial_pose_y" default="0.0"/>
+  <arg name="initial_pose_a" default="0.0"/>
+
+  <include file="$(find navigation)/launch/includes/amcl.launch.xml">
+    <arg name="initial_pose_x" value="$(arg initial_pose_x)"/>
+    <arg name="initial_pose_y" value="$(arg initial_pose_y)"/>
+    <arg name="initial_pose_a" value="$(arg initial_pose_a)"/>
+  </include>
+
+</launch>
