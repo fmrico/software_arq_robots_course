@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>cameras_cpp</name>
+  <version>0.1.0</version>
+  <description>The cameras_cpp package</description>
+
+  <maintainer email="fmrico@gmail.com">fmrico</maintainer>
+
+  <license>Apache 2</license>
+  <url type="website">https://www.aulavirtual.urjc.es/moodle/course/view.php?id=144699</url>
+
+  <author email="fmrico@gmail.com">Francisco Martín</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+ 
+  <build_depend>roscpp</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>tf</build_depend>
+  <build_depend>pcl_ros</build_depend>
+  <build_depend>image_transport</build_depend>
+  <build_depend>cv_bridge</build_depend>
+  <build_depend>pcl_conversions</build_depend>
+
+  <build_depend>roslint</build_depend>
+
+  <build_export_depend>roscpp</build_export_depend>
+  <build_export_depend>std_msgs</build_export_depend>
+  <build_export_depend>sensor_msgs</build_export_depend>
+  <build_export_depend>tf</build_export_depend>
+  <build_export_depend>pcl_ros</build_export_depend>
+	<build_export_depend>image_transport</build_export_depend>
+  <build_export_depend>cv_bridge</build_export_depend>
+  <build_export_depend>pcl_conversions</build_export_depend>
+
+  <exec_depend>roscpp</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>tf</exec_depend>
+  <exec_depend>pcl_ros</exec_depend>
+	<exec_depend>image_transport</exec_depend>
+  <exec_depend>cv_bridge</exec_depend>
+  <exec_depend>pcl_conversions</exec_depend>
+  <export>
+  </export>
+</package>
