@@ -1,0 +1,12 @@
+ <root main_tree_to_execute = "MainTree" >
+     <BehaviorTree ID="MainTree">
+        <Sequence name="root_sequence">
+            <CheckBattery   name="battery_ok"/>
+            <ApproachObject name="approach"/>
+            <SequenceStar name="gripper_sequence">
+                <OpenGripper    name="open_gripper"/>
+                <CloseGripper   name="close_gripper"/>
+            </SequenceStar>
+        </Sequence>
+     </BehaviorTree>
+ </root>

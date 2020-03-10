@@ -1,0 +1,8 @@
+ <root main_tree_to_execute = "MainTree" >
+     <BehaviorTree ID="MainTree">
+        <ReactiveSequence name="root_sequence">
+            <CheckBattery   name="battery_ok"/>
+            <ApproachObject name="approach"/>
+        </ReactiveSequence>
+     </BehaviorTree>
+ </root>
