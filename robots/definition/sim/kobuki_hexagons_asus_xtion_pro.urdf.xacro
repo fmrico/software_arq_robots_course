@@ -19,15 +19,14 @@
   <xacro:include filename="$(find robots)/definition/sim/urdf/sensors/asus_xtion_pro.urdf.xacro"/>
   <xacro:include filename="$(find robots)/definition/sim/urdf/sensors/asus_xtion_pro_offset.urdf.xacro"/>
 
-  <kobuki/>
+  <xacro:kobuki/>
 
-  <stack_hexagons                 parent="base_link"/>
-  <sensor_asus_xtion_pro          parent="base_link"/>
-<!--  <sensor_hokuyo 		              parent="base_link" name="laser0" ros_topic="scan" update_rate="40" ray_count="1081" min_angle="135" max_angle="-135" />-->
-
-  <include filename="$(find robots)/definition/sim/hokuyo.urdf.xacro" />
+  <xacro:stack_hexagons                 parent="base_link"/>
+  <xacro:sensor_asus_xtion_pro          parent="base_link"/>
+  
+  <xacro:include filename="$(find robots)/definition/sim/hokuyo.urdf.xacro" />
   <xacro:hokuyo name="laser0" parent="base_link" ros_topic="scan" update_rate="40" ray_count="1081" min_angle="135" max_angle="-135">
       <origin xyz="0.0 0.0 0.08" rpy="${M_PI} 0 0"/>
-  </xacro:hokuyo>
+  </xacro:hokuyo>-->
 
 </robot>
