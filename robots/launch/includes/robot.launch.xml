@@ -9,7 +9,7 @@
   <arg name="posYaw" default="1.57"/>
 
   <param name="robot_description"
-        command="$(find xacro)/xacro.py '$(find robots)/definition/sim/kobuki_hexagons_asus_xtion_pro.urdf.xacro'"/>
+        command="$(find xacro)/xacro '$(find robots)/definition/sim/kobuki_hexagons_asus_xtion_pro.urdf.xacro'"/>
         
   <node pkg="gazebo_ros" type="spawn_model" name="spawn_$(arg robot_name)"
         args="-x $(arg posx) -y $(arg posy) -Y $(arg posYaw) -unpause -urdf -param robot_description -model $(arg robot_name)" respawn="false">

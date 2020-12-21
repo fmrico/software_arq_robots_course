@@ -50,24 +50,24 @@ public:
     image_sub_ = it_.subscribe("/camera/rgb/image_raw", 1, &ImageConverter::imageCb, this);
     image_pub_ = it_.advertise("/hsv/image_filtered", 1);
 
-    cvNamedWindow("Imagen Fuente");
-    cvNamedWindow("Imagen filtrada");
+    cv::namedWindow("Imagen Fuente");
+    cv::namedWindow("Imagen filtrada");
 
     // TrackBar
-    cvCreateTrackbar("Hue Upper", "Imagen filtrada", &hupper_, 360, NULL);
-    cvCreateTrackbar("Hue Lower", "Imagen filtrada", &hlower_, 360, NULL);
-    cvCreateTrackbar("Sat Upper", "Imagen filtrada", &supper_, 255, NULL);
-    cvCreateTrackbar("Sat Lower", "Imagen filtrada", &slower_, 255, NULL);
-    cvCreateTrackbar("Val Upper", "Imagen filtrada", &vupper_, 255, NULL);
-    cvCreateTrackbar("Val Lower", "Imagen filtrada", &vlower_, 255, NULL);
-    cvCreateTrackbar("Channel", "Imagen filtrada", &channel_, MAX_CHANNELS-1, NULL);
-    cvSetTrackbarPos("Hue Upper", "Imagen filtrada", 360);
-    cvSetTrackbarPos("Hue Lower", "Imagen filtrada", 0);
-    cvSetTrackbarPos("Sat Upper", "Imagen filtrada", 255);
-    cvSetTrackbarPos("Sat Lower", "Imagen filtrada", 0);
-    cvSetTrackbarPos("Val Upper", "Imagen filtrada", 255);
-    cvSetTrackbarPos("Val Lower", "Imagen filtrada", 0);
-    cvSetTrackbarPos("Channel", "Imagen filtrada", 0);
+    cv::createTrackbar("Hue Upper", "Imagen filtrada", &hupper_, 360, NULL);
+    cv::createTrackbar("Hue Lower", "Imagen filtrada", &hlower_, 360, NULL);
+    cv::createTrackbar("Sat Upper", "Imagen filtrada", &supper_, 255, NULL);
+    cv::createTrackbar("Sat Lower", "Imagen filtrada", &slower_, 255, NULL);
+    cv::createTrackbar("Val Upper", "Imagen filtrada", &vupper_, 255, NULL);
+    cv::createTrackbar("Val Lower", "Imagen filtrada", &vlower_, 255, NULL);
+    cv::createTrackbar("Channel", "Imagen filtrada", &channel_, MAX_CHANNELS-1, NULL);
+    cv::setTrackbarPos("Hue Upper", "Imagen filtrada", 360);
+    cv::setTrackbarPos("Hue Lower", "Imagen filtrada", 0);
+    cv::setTrackbarPos("Sat Upper", "Imagen filtrada", 255);
+    cv::setTrackbarPos("Sat Lower", "Imagen filtrada", 0);
+    cv::setTrackbarPos("Val Upper", "Imagen filtrada", 255);
+    cv::setTrackbarPos("Val Lower", "Imagen filtrada", 0);
+    cv::setTrackbarPos("Channel", "Imagen filtrada", 0);
 
     for (int i=0; i < MAX_CHANNELS; i++)
       initChannel(&hsvValues_[i], i);
