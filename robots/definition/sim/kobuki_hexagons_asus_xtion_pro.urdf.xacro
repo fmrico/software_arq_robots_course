@@ -27,6 +27,6 @@
   <xacro:include filename="$(find robots)/definition/sim/hokuyo.urdf.xacro" />
   <xacro:hokuyo name="laser0" parent="base_link" ros_topic="scan" update_rate="40" ray_count="1081" min_angle="135" max_angle="-135">
       <origin xyz="0.0 0.0 0.08" rpy="${M_PI} 0 0"/>
-  </xacro:hokuyo>-->
+  </xacro:hokuyo>
 
 </robot>
