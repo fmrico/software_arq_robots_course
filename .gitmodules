@@ -13,3 +13,16 @@
 [submodule "thirdparty/kobuki_desktop"]
 	path = thirdparty/kobuki_desktop
 	url = https://github.com/yujinrobot/kobuki_desktop
+[submodule "thirdparty/yocs_msgs"]
+	path = thirdparty/yocs_msgs
+	url = https://github.com/yujinrobot/yocs_msgs
+[submodule "thirdparty/yujin_ocs"]
+	path = thirdparty/yujin_ocs
+	url = https://github.com/yujinrobot/yujin_ocs
+[submodule "thirdparty/ar_track_alvar"]
+	path = thirdparty/ar_track_alvar
+	url = https://github.com/jginesclavero/ar_track_alvar
+	branch = msgs-only
+[submodule "thirdparty/driver_common"]
+	path = thirdparty/driver_common
+	url = https://github.com/ros-drivers/driver_common
