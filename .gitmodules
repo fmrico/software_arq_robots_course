@@ -1,6 +1,3 @@
-[submodule "thirdparty/hokuyo_node"]
-	path = thirdparty/hokuyo_node
-	url = https://github.com/ros-drivers/hokuyo_node.git
 [submodule "thirdparty/kobuki"]
 	path = thirdparty/kobuki
 	url = https://github.com/yujinrobot/kobuki.git
@@ -23,6 +20,3 @@
 	path = thirdparty/ar_track_alvar
 	url = https://github.com/jginesclavero/ar_track_alvar
 	branch = msgs-only
-[submodule "thirdparty/driver_common"]
-	path = thirdparty/driver_common
-	url = https://github.com/ros-drivers/driver_common
