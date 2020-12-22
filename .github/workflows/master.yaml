@@ -1,0 +1,29 @@
+name: master
+
+on:
+  pull_request:
+    branches:
+      - master
+  push:
+    branches:
+      - master
+      
+jobs:
+  build-and-test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-20.04]
+      fail-fast: false
+    steps:
+      - name: Setup ROS
+        uses: ros-tooling/setup-ros@0.1.1
+        with:
+          required-ros-distributions: noetic
+      - name: build and test
+        uses: ros-tooling/action-ros-ci@0.1.0
+        with:
+          package-name: basics_ros behavior_trees bumpgo cameras_cpp comms_cpp geometry_tf navigation parameters_cpp robots 
+          target-ros1-distro: noetic
+          vcs-repo-file-url: ""
+
