@@ -21,7 +21,7 @@ jobs:
         with:
           required-ros-distributions: noetic
       - name: build and test
-        uses: fmrico/action-ros-ci@0.1.1
+        uses: ros-tooling/action-ros-ci@0.1.1
         with:
           package-name: basics_ros behavior_trees bumpgo cameras_cpp comms_cpp geometry_tf navigation parameters_cpp robots 
           target-ros1-distro: noetic
