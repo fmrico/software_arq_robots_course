@@ -1,0 +1,31 @@
+name: master
+
+on:
+  pull_request:
+    branches:
+      - master
+  push:
+    branches:
+      - master
+      
+jobs:
+  build-and-test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-20.04]
+      fail-fast: false
+    steps:
+      - name: Setup ROS
+        uses: ros-tooling/setup-ros@0.1.1
+        with:
+          required-ros-distributions: noetic
+      - name: build and test
+        uses: fmrico/action-ros-ci@0.1.1
+        with:
+          package-name: basics_ros behavior_trees bumpgo cameras_cpp comms_cpp geometry_tf navigation parameters_cpp robots 
+          target-ros2-distro: noetic
+          vcs-repo-file-url: ""
+          colcon-mixin-name: coverage-gcc
+          colcon-mixin-repository: https://raw.githubusercontent.com/colcon/colcon-mixin-repository/master/index.yaml
+
