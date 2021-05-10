@@ -35,11 +35,14 @@ int main(int argc, char **argv)
   factory.registerNodeType<behavior_trees::OpenGripper>("OpenGripper");
   factory.registerNodeType<behavior_trees::CloseGripper>("CloseGripper");
 
+  auto blackboard = BT::Blackboard::create();
+
+  blackboard->set("object", "cup");
 
   std::string pkgpath = ros::package::getPath("behavior_trees");
-  std::string xml_file = pkgpath + "/behavior_trees_xml/tree_3.xml";
+  std::string xml_file = pkgpath + "/behavior_trees_xml/tree_1.xml";
 
-  BT::Tree tree = factory.createTreeFromFile(xml_file);
+  BT::Tree tree = factory.createTreeFromFile(xml_file, blackboard);
 
   ros::Rate loop_rate(5);
 

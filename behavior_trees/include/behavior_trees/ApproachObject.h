@@ -27,11 +27,17 @@ namespace behavior_trees
 class ApproachObject : public BT::ActionNodeBase
 {
   public:
-    explicit ApproachObject(const std::string& name);
+    explicit ApproachObject(const std::string& name, const BT::NodeConfiguration& config);
 
     void halt();
 
     BT::NodeStatus tick();
+
+
+    static BT::PortsList providedPorts()
+    {
+        return { BT::InputPort<std::string>("object")};
+    }
 
   private:
     int counter_;

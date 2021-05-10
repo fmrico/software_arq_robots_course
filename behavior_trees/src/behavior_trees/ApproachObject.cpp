@@ -25,8 +25,8 @@
 namespace behavior_trees
 {
 
-ApproachObject::ApproachObject(const std::string& name)
-: BT::ActionNodeBase(name, {}), counter_(0)
+ApproachObject::ApproachObject(const std::string& name, const BT::NodeConfiguration & config)
+: BT::ActionNodeBase(name, config), counter_(0)
 {
 }
 
@@ -39,7 +39,8 @@ ApproachObject::halt()
 BT::NodeStatus
 ApproachObject::tick()
 {
-  ROS_INFO("ApproachObject tick %d", counter_);
+  std::string object = getInput<std::string>("object").value();
+  ROS_INFO("ApproachObject [%s] tick %d", object.c_str(), counter_);
 
   if (counter_++ < 5)
   {
