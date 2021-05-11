@@ -39,6 +39,11 @@ ApproachObject::halt()
 BT::NodeStatus
 ApproachObject::tick()
 {
+  if (status() == BT::NodeStatus::IDLE)
+  {
+    ROS_INFO("First time in ApproachObject");
+  }
+
   std::string object = getInput<std::string>("object").value();
   ROS_INFO("ApproachObject [%s] tick %d", object.c_str(), counter_);
 
