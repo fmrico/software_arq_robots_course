@@ -18,7 +18,6 @@
 #include "behavior_trees/OpenGripper.h"
 
 #include "behaviortree_cpp_v3/behavior_tree.h"
-#include "behaviortree_cpp_v3/bt_factory.h"
 
 #include "ros/ros.h"
 
@@ -52,3 +51,9 @@ OpenGripper::tick()
 }
 
 }  // namespace behavior_trees
+
+#include "behaviortree_cpp_v3/bt_factory.h"
+BT_REGISTER_NODES(factory)
+{
+  factory.registerNodeType<behavior_trees::OpenGripper>("OpenGripper");
+}

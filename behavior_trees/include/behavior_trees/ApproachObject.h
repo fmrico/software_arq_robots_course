@@ -21,6 +21,8 @@
 
 #include <string>
 
+#include "ros/ros.h"
+
 namespace behavior_trees
 {
 
@@ -40,6 +42,9 @@ class ApproachObject : public BT::ActionNodeBase
     }
 
   private:
+    ros::NodeHandle nh_;
+    ros::Publisher vel_pub_;
+
     int counter_;
 };
 

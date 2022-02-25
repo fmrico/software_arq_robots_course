@@ -18,7 +18,6 @@
 #include "behavior_trees/CheckBattery.h"
 
 #include "behaviortree_cpp_v3/behavior_tree.h"
-#include "behaviortree_cpp_v3/bt_factory.h"
 
 #include "ros/ros.h"
 
@@ -45,3 +44,9 @@ CheckBattery::tick()
 }
 
 }  // namespace behavior_trees
+
+#include "behaviortree_cpp_v3/bt_factory.h"
+BT_REGISTER_NODES(factory)
+{
+  factory.registerNodeType<behavior_trees::CheckBattery>("CheckBattery");
+}

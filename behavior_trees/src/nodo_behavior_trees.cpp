@@ -12,14 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "behavior_trees/ApproachObject.h"
-#include "behavior_trees/CheckBattery.h"
-#include "behavior_trees/OpenGripper.h"
-#include "behavior_trees/CloseGripper.h"
+#include <string>
+#include <memory>
 
 #include "ros/ros.h"
+
 #include "behaviortree_cpp_v3/behavior_tree.h"
 #include "behaviortree_cpp_v3/bt_factory.h"
+#include "behaviortree_cpp_v3/utils/shared_library.h"
+#include "behaviortree_cpp_v3/loggers/bt_zmq_publisher.h"
 
 #include "ros/package.h"
 
@@ -29,22 +30,23 @@ int main(int argc, char **argv)
   ros::NodeHandle n;
 
   BT::BehaviorTreeFactory factory;
+  BT::SharedLibrary loader;
 
-  factory.registerNodeType<behavior_trees::ApproachObject>("ApproachObject");
-  factory.registerNodeType<behavior_trees::CheckBattery>("CheckBattery");
-  factory.registerNodeType<behavior_trees::OpenGripper>("OpenGripper");
-  factory.registerNodeType<behavior_trees::CloseGripper>("CloseGripper");
+  factory.registerFromPlugin(loader.getOSName("asr_approach_object_bt_node"));
+  factory.registerFromPlugin(loader.getOSName("asr_check_battery_bt_node"));
+  factory.registerFromPlugin(loader.getOSName("asr_close_gripper_bt_node"));
+  factory.registerFromPlugin(loader.getOSName("asr_open_gripper_bt_node"));
 
   auto blackboard = BT::Blackboard::create();
-
   blackboard->set("object", "cup");
 
   std::string pkgpath = ros::package::getPath("behavior_trees");
   std::string xml_file = pkgpath + "/behavior_trees_xml/tree_1.xml";
 
   BT::Tree tree = factory.createTreeFromFile(xml_file, blackboard);
+  auto publisher_zmq = std::make_shared<BT::PublisherZMQ>(tree, 10, 1666, 1667);
 
-  ros::Rate loop_rate(5);
+  ros::Rate loop_rate(10);
 
   int count = 0;
 
