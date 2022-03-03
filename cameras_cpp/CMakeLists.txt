@@ -11,6 +11,7 @@ find_package(catkin REQUIRED COMPONENTS
   image_transport
   pcl_conversions
   pcl_ros
+  darknet_ros_msgs
 )
 
 find_package(OpenCV)
@@ -47,6 +48,9 @@ target_link_libraries(nodo_rgbd_filter ${catkin_LIBRARIES})
 
 add_executable(nodo_rgbd_tf src/nodo_rgbd_tf.cpp)
 target_link_libraries(nodo_rgbd_tf ${catkin_LIBRARIES})
+
+add_executable(nodo_bbx src/nodo_bbx.cpp)
+target_link_libraries(nodo_bbx ${catkin_LIBRARIES})
 
 set(ROSLINT_CPP_OPTS "--filter=-runtime/printf")
 
