@@ -13,35 +13,43 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <string>
-
-#include "behavior_trees/CheckBattery.h"
+#ifndef BEHAVIOR_TREES_APPROACHOBJECT_H
+#define BEHAVIOR_TREES_APPROACHOBJECT_H
 
 #include "behaviortree_cpp_v3/behavior_tree.h"
 #include "behaviortree_cpp_v3/bt_factory.h"
 
+#include <string>
 #include "ros/ros.h"
 
 namespace behavior_trees
 {
 
-CheckBattery::CheckBattery(const std::string& name)
-: BT::ActionNodeBase(name, {}), counter_(0)
+class Turn : public BT::ActionNodeBase
 {
-}
+  public:
+    ros::NodeHandle n_;
+    explicit Turn(const std::string& name, const BT::NodeConfiguration& config);
 
-void
-CheckBattery::halt()
-{
-  ROS_INFO("CheckBattery halt");
-}
+    void halt();
 
-BT::NodeStatus
-CheckBattery::tick()
-{
-  ROS_INFO("CheckBattery tick");
+    BT::NodeStatus tick();
 
-  return BT::NodeStatus::SUCCESS;
-}
+    static BT::PortsList providedPorts()
+    {
+        return { 
+          BT::InputPort<std::string>("turn"),
+          
+        };
+    }
+
+  private:
+    static constexpr float TURNING_VEL = 0.5;
+    static constexpr double TURNING_TIME = 5.0;
+    ros::Publisher pub_vel_;
+
+};
 
 }  // namespace behavior_trees
+
+#endif  // BEHAVIOR_TREES_APPROACHOBJECT_H

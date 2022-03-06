@@ -15,33 +15,45 @@
 
 #include <string>
 
-#include "behavior_trees/CheckBattery.h"
+#include "behavior_trees/Turn.h"
 
 #include "behaviortree_cpp_v3/behavior_tree.h"
 #include "behaviortree_cpp_v3/bt_factory.h"
+
+#include "geometry_msgs/Twist.h"
 
 #include "ros/ros.h"
 
 namespace behavior_trees
 {
 
-CheckBattery::CheckBattery(const std::string& name)
-: BT::ActionNodeBase(name, {}), counter_(0)
+Turn::Turn(const std::string& name, const BT::NodeConfiguration & config)
+: BT::ActionNodeBase(name, config)
 {
+  pub_vel_ = n_.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity",1);
 }
 
 void
-CheckBattery::halt()
+Turn::halt()
 {
-  ROS_INFO("CheckBattery halt");
+  ROS_INFO("finished turning");
 }
 
 BT::NodeStatus
-CheckBattery::tick()
+Turn::tick()
 {
-  ROS_INFO("CheckBattery tick");
-
-  return BT::NodeStatus::SUCCESS;
+  ros::Time press_ts_ = getInput<ros::Time>("turn").value();
+  geometry_msgs::Twist cmd;
+  cmd.angular.z = TURNING_VEL;
+  if ((ros::Time::now()-press_ts_).toSec() > TURNING_TIME )
+      {
+        ROS_INFO("TURNING -> GOING_FORWARD");
+        return BT::NodeStatus::SUCCESS;
+      }
+    else  
+    {
+      return BT::NodeStatus::RUNNING;
+    }
 }
 
 }  // namespace behavior_trees

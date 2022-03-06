@@ -15,33 +15,36 @@
 
 #include <string>
 
-#include "behavior_trees/CheckBattery.h"
+#include "behavior_trees/Forward.h"
 
 #include "behaviortree_cpp_v3/behavior_tree.h"
 #include "behaviortree_cpp_v3/bt_factory.h"
+
+#include "geometry_msgs/Twist.h"
 
 #include "ros/ros.h"
 
 namespace behavior_trees
 {
 
-CheckBattery::CheckBattery(const std::string& name)
-: BT::ActionNodeBase(name, {}), counter_(0)
+Forward::Forward(const std::string& name, const BT::NodeConfiguration & config)
+: BT::ActionNodeBase(name, config)
 {
+  pub_vel_ = n_.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity",1);
 }
 
 void
-CheckBattery::halt()
+Forward::halt()
 {
-  ROS_INFO("CheckBattery halt");
+  ROS_INFO("finished going forward");
 }
 
 BT::NodeStatus
-CheckBattery::tick()
+Forward::tick()
 {
-  ROS_INFO("CheckBattery tick");
-
-  return BT::NodeStatus::SUCCESS;
+  geometry_msgs::Twist cmd;
+  cmd.linear.x = GOING_FORWARD_VEL;
+  return BT::NodeStatus::RUNNING;
 }
 
 }  // namespace behavior_trees

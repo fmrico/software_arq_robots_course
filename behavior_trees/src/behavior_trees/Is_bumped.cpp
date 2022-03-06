@@ -15,33 +15,42 @@
 
 #include <string>
 
-#include "behavior_trees/CheckBattery.h"
+#include "behavior_trees/Is_bumped.h"
 
 #include "behaviortree_cpp_v3/behavior_tree.h"
 #include "behaviortree_cpp_v3/bt_factory.h"
 
+#include "geometry_msgs/Twist.h"
 #include "ros/ros.h"
 
 namespace behavior_trees
 {
 
-CheckBattery::CheckBattery(const std::string& name)
-: BT::ActionNodeBase(name, {}), counter_(0)
+Is_bumped::Is_bumped(const std::string& name, const BT::NodeConfiguration & config)
+: BT::ConditionNode(name, config)
 {
+  sub_bumper_ = n_.subscribe("/mobile_base/events/bumper", 1, &Is_bumped::bumperCallback, this);
 }
 
 void
-CheckBattery::halt()
+Is_bumped::bumperCallback(const kobuki_msgs::BumperEvent::ConstPtr& msg)
 {
-  ROS_INFO("CheckBattery halt");
+  pressed_ = msg->state == kobuki_msgs::BumperEvent::PRESSED;
 }
 
 BT::NodeStatus
-CheckBattery::tick()
+Is_bumped::tick()
 {
-  ROS_INFO("CheckBattery tick");
-
-  return BT::NodeStatus::SUCCESS;
+  if (pressed_)
+      {
+        press_ts_ = ros::Time::now();
+        setOutput<ros::Time>("back",press_ts_);
+        return BT::NodeStatus::SUCCESS;
+      }
+    else  
+    {
+      return BT::NodeStatus::FAILURE;
+    }
 }
 
 }  // namespace behavior_trees

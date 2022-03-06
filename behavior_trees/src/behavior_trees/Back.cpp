@@ -15,33 +15,47 @@
 
 #include <string>
 
-#include "behavior_trees/CheckBattery.h"
+#include "behavior_trees/Back.h"
 
 #include "behaviortree_cpp_v3/behavior_tree.h"
 #include "behaviortree_cpp_v3/bt_factory.h"
+
+#include "geometry_msgs/Twist.h"
 
 #include "ros/ros.h"
 
 namespace behavior_trees
 {
 
-CheckBattery::CheckBattery(const std::string& name)
-: BT::ActionNodeBase(name, {}), counter_(0)
+Back::Back(const std::string& name, const BT::NodeConfiguration & config)
+: BT::ActionNodeBase(name, config)
 {
+  pub_vel_ = n_.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity",1);
 }
 
 void
-CheckBattery::halt()
+Back::halt()
 {
-  ROS_INFO("CheckBattery halt");
+  ROS_INFO("finished backing");
 }
 
 BT::NodeStatus
-CheckBattery::tick()
+Back::tick()
 {
-  ROS_INFO("CheckBattery tick");
-
-  return BT::NodeStatus::SUCCESS;
+  ros::Time press_ts_ = getInput<ros::Time>("back").value();
+  geometry_msgs::Twist cmd;
+  cmd.linear.x = GOING_BACK_VEL;
+  if ((ros::Time::now() - press_ts_).toSec() > BACKING_TIME )
+      {
+        ROS_INFO("GOING_BACK -> TURNING");
+        turn_ts_ = ros::Time::now();
+        setOutput<ros::Time>("turn",turn_ts_);
+        return BT::NodeStatus::SUCCESS;
+      }
+    else  
+    {
+      return BT::NodeStatus::RUNNING;
+    }
 }
 
 }  // namespace behavior_trees

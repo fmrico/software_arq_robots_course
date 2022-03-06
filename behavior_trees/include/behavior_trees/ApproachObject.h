@@ -21,8 +21,6 @@
 
 #include <string>
 
-#include "ros/ros.h"
-
 namespace behavior_trees
 {
 
@@ -38,13 +36,13 @@ class ApproachObject : public BT::ActionNodeBase
 
     static BT::PortsList providedPorts()
     {
-        return { BT::InputPort<std::string>("object")};
+        return { 
+          BT::InputPort<std::string>("object"),
+          
+        };
     }
 
   private:
-    ros::NodeHandle nh_;
-    ros::Publisher vel_pub_;
-
     int counter_;
 };
 

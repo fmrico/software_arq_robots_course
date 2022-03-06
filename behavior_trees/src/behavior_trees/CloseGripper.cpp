@@ -18,6 +18,7 @@
 #include "behavior_trees/CloseGripper.h"
 
 #include "behaviortree_cpp_v3/behavior_tree.h"
+#include "behaviortree_cpp_v3/bt_factory.h"
 
 #include "ros/ros.h"
 
@@ -51,9 +52,3 @@ CloseGripper::tick()
 }
 
 }  // namespace behavior_trees
-
-#include "behaviortree_cpp_v3/bt_factory.h"
-BT_REGISTER_NODES(factory)
-{
-  factory.registerNodeType<behavior_trees::CloseGripper>("CloseGripper");
-}
