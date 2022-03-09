@@ -42,10 +42,14 @@ Turn::halt()
 BT::NodeStatus
 Turn::tick()
 {
-  ros::Time press_ts_ = getInput<ros::Time>("turn").value();
+  ros::Time turn_ts_;
+  if(getInput<ros::Time>("object2").has_value()){
+    turn_ts_ = getInput<ros::Time>("object2").value();
+  }
   geometry_msgs::Twist cmd;
   cmd.angular.z = TURNING_VEL;
-  if ((ros::Time::now()-press_ts_).toSec() > TURNING_TIME )
+  pub_vel_.publish(cmd);
+  if ((ros::Time::now()-turn_ts_).toSec() > TURNING_TIME )
       {
         ROS_INFO("TURNING -> GOING_FORWARD");
         return BT::NodeStatus::SUCCESS;

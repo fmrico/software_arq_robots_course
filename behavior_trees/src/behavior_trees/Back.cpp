@@ -42,14 +42,19 @@ Back::halt()
 BT::NodeStatus
 Back::tick()
 {
-  ros::Time press_ts_ = getInput<ros::Time>("back").value();
+  ros::Time press_ts_;
+  if(getInput<ros::Time>("object1").has_value()){
+    press_ts_ = getInput<ros::Time>("object1").value();
+  }
+
   geometry_msgs::Twist cmd;
   cmd.linear.x = GOING_BACK_VEL;
+  pub_vel_.publish(cmd);
   if ((ros::Time::now() - press_ts_).toSec() > BACKING_TIME )
       {
         ROS_INFO("GOING_BACK -> TURNING");
         turn_ts_ = ros::Time::now();
-        setOutput<ros::Time>("turn",turn_ts_);
+        setOutput<ros::Time>("object2",turn_ts_);
         return BT::NodeStatus::SUCCESS;
       }
     else  

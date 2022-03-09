@@ -25,8 +25,8 @@
 namespace behavior_trees
 {
 
-CheckBattery::CheckBattery(const std::string& name)
-: BT::ActionNodeBase(name, {}), counter_(0)
+CheckBattery::CheckBattery(const std::string& name, const BT::NodeConfiguration & config)
+: BT::ActionNodeBase(name, config), counter_(0)
 {
 }
 
@@ -39,6 +39,8 @@ CheckBattery::halt()
 BT::NodeStatus
 CheckBattery::tick()
 {
+  setOutput<float>("level", 1.0f);
+
   ROS_INFO("CheckBattery tick");
 
   return BT::NodeStatus::SUCCESS;

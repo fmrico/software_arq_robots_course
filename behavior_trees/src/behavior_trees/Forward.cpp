@@ -44,6 +44,7 @@ Forward::tick()
 {
   geometry_msgs::Twist cmd;
   cmd.linear.x = GOING_FORWARD_VEL;
+  pub_vel_.publish(cmd);
   return BT::NodeStatus::RUNNING;
 }
 

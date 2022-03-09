@@ -44,7 +44,11 @@ ApproachObject::tick()
     ROS_INFO("First time in ApproachObject");
   }
 
-  std::string object = getInput<std::string>("object").value();
+  std::string object = "hola";
+  if(getInput<std::string>("object").has_value()){
+    object = getInput<std::string>("object").value();
+  }
+
   ROS_INFO("ApproachObject [%s] tick %d", object.c_str(), counter_);
 
   if (counter_++ < 5)

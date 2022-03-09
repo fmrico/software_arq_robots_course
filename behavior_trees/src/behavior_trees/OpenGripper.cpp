@@ -25,8 +25,8 @@
 namespace behavior_trees
 {
 
-OpenGripper::OpenGripper(const std::string& name)
-: BT::ActionNodeBase(name, {}), counter_(0)
+OpenGripper::OpenGripper(const std::string& name, const BT::NodeConfiguration & config)
+: BT::ActionNodeBase(name, config), counter_(0)
 {
 }
 
@@ -39,7 +39,10 @@ OpenGripper::halt()
 BT::NodeStatus
 OpenGripper::tick()
 {
-  ROS_INFO("OpenGripper tick %d", counter_);
+
+  float battery_level = getInput<float>("battery").value();
+
+  ROS_INFO("OpenGripper tick %d %f", counter_, battery_level);
 
   if (counter_++ < 5)
   {

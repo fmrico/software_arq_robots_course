@@ -48,7 +48,7 @@ int main(int argc, char **argv)
 
   auto blackboard = BT::Blackboard::create();//creo la blackboard
 
-  blackboard->set("back", "turn");
+  blackboard->set("object", "cup");
 
   std::string pkgpath = ros::package::getPath("behavior_trees");//buscas el behavior tree creado con xml
   std::string xml_file = pkgpath + "/behavior_trees_xml/tree_bump.xml";

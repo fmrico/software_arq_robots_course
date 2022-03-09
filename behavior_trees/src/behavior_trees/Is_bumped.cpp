@@ -41,10 +41,10 @@ Is_bumped::bumperCallback(const kobuki_msgs::BumperEvent::ConstPtr& msg)
 BT::NodeStatus
 Is_bumped::tick()
 {
-  if (pressed_)
+  if (!pressed_)
       {
         press_ts_ = ros::Time::now();
-        setOutput<ros::Time>("back",press_ts_);
+        setOutput<ros::Time>("object1",press_ts_);
         return BT::NodeStatus::SUCCESS;
       }
     else  

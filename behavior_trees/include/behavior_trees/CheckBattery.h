@@ -27,11 +27,19 @@ namespace behavior_trees
 class CheckBattery : public BT::ActionNodeBase
 {
   public:
-    explicit CheckBattery(const std::string& name);
+    explicit CheckBattery(const std::string& name, const BT::NodeConfiguration & config);
 
     void halt();
 
     BT::NodeStatus tick();
+
+    static BT::PortsList providedPorts()
+    {
+        return { 
+          BT::OutputPort<float>("level"),
+          
+        };
+    }
 
   private:
     int counter_;

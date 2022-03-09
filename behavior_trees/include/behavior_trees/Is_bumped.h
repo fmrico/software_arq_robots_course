@@ -13,8 +13,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef BEHAVIOR_TREES_APPROACHOBJECT_H
-#define BEHAVIOR_TREES_APPROACHOBJECT_H
+#ifndef BEHAVIOR_TREES_IS_BUMPED_H
+#define BEHAVIOR_TREES_IS_BUMPED_H
 
 #include "behaviortree_cpp_v3/behavior_tree.h"
 #include "behaviortree_cpp_v3/bt_factory.h"
@@ -35,7 +35,7 @@ class Is_bumped : public BT::ConditionNode
     static BT::PortsList providedPorts()
     {
         return { 
-          BT::OutputPort<std::string>("back"),
+          BT::OutputPort<ros::Time>("object1"),
           
         };
     }
@@ -51,4 +51,4 @@ class Is_bumped : public BT::ConditionNode
 
 }  // namespace behavior_trees
 
-#endif  // BEHAVIOR_TREES_APPROACHOBJECT_H
+#endif  // BEHAVIOR_TREES_IS_BUMPED_H

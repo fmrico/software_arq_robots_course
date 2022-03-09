@@ -1,27 +1,15 @@
-<?xml version="1.0"?>
-<root main_tree_to_execute="BehaviorTree">
-    <!-- ////////// -->
-    <BehaviorTree ID="BehaviorTree">
+<root main_tree_to_execute="MainTree">
+    <BehaviorTree ID="MainTree">
         <ReactiveSequence>
             <Fallback>
-                <Inverter>
-                    <Condition ID="Is_bumped" object="{back}"/>
-                </Inverter>
+                 <Is_bumped name="is_bumped" object1="{back}"/>
                 <Sequence>
-                    <Action ID="Back" object="{back}" object="{turn}"/>
-                    <Action ID="Turn" object="{turn}"/>
+                    <Back name="back" object1="{back}" object2="{turn}"/>
+                    <Turn name="turn" object2="{turn}"/>
                 </Sequence>
             </Fallback>
-            <Action ID="Forward"/>
+            <Forward name="forward"/>
         </ReactiveSequence>
     </BehaviorTree>
-    <!-- ////////// -->
-    <TreeNodesModel>
-        <Action ID="Back" object="{o1}"/>
-        <Action ID="Forward"/>
-        <Condition ID="Is_bumped" object="{o1}"/>
-        <Action ID="Turn" object="{o1}"/>
-    </TreeNodesModel>
-    <!-- ////////// -->
 </root>
 

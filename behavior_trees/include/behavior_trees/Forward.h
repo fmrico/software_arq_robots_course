@@ -13,8 +13,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef BEHAVIOR_TREES_APPROACHOBJECT_H
-#define BEHAVIOR_TREES_APPROACHOBJECT_H
+#ifndef BEHAVIOR_TREES_FORWARD_H
+#define BEHAVIOR_TREES_FORWARD_H
 
 #include "behaviortree_cpp_v3/behavior_tree.h"
 #include "behaviortree_cpp_v3/bt_factory.h"
@@ -34,6 +34,7 @@ class Forward : public BT::ActionNodeBase
     void halt();
 
     BT::NodeStatus tick();
+    static BT::PortsList providedPorts(){};
 
   private:
     static constexpr float GOING_FORWARD_VEL = 0.2;
@@ -42,4 +43,4 @@ class Forward : public BT::ActionNodeBase
 
 }  // namespace behavior_trees
 
-#endif  // BEHAVIOR_TREES_APPROACHOBJECT_H
+#endif  // BEHAVIOR_TREES_FORWARD_H

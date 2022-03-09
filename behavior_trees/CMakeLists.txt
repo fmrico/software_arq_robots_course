@@ -11,13 +11,23 @@ find_package(catkin REQUIRED COMPONENTS
 )
 
 catkin_package(
-CATKIN_DEPENDS roscpp std_msgs behaviortree_cpp_v3
+CATKIN_DEPENDS roscpp std_msgs kobuki_msgs sensor_msgs behaviortree_cpp_v3
 )
 
 include_directories(
   include
   ${catkin_INCLUDE_DIRS}
 )
+
+
+add_executable(nodo_behavior_trees 
+  src/nodo_behavior_trees.cpp
+  src/behavior_trees/ApproachObject.cpp
+  src/behavior_trees/CheckBattery.cpp
+  src/behavior_trees/OpenGripper.cpp
+  src/behavior_trees/CloseGripper.cpp
+)
+target_link_libraries(nodo_behavior_trees ${catkin_LIBRARIES})
 
 add_executable(nodo_bump 
   src/nodo_bump.cpp
@@ -30,8 +40,6 @@ add_executable(nodo_bump
   src/behavior_trees/Forward.cpp
   src/behavior_trees/Turn.cpp
 )
-
-
 target_link_libraries(nodo_bump ${catkin_LIBRARIES})
 
 
