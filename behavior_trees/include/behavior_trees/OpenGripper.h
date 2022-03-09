@@ -27,11 +27,19 @@ namespace behavior_trees
 class OpenGripper : public BT::ActionNodeBase
 {
   public:
-    explicit OpenGripper(const std::string& name);
+    explicit OpenGripper(const std::string& name, const BT::NodeConfiguration & config);
 
     void halt();
 
     BT::NodeStatus tick();
+
+    static BT::PortsList providedPorts()
+    {
+        return { 
+          BT::InputPort<float>("battery"),
+          
+        };
+    }
 
   private:
     int counter_;

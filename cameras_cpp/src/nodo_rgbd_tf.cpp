@@ -65,6 +65,7 @@ public:
   {
     sensor_msgs::PointCloud2 cloud;
 
+    // transfomro el workingframe a esa nube de puntos
     try
     {
       pcl_ros::transformPointCloud(workingFrameId_, *cloud_in, cloud, tfListener_);

@@ -13,38 +13,42 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef BEHAVIOR_TREES_CHECKBATTERY_H
-#define BEHAVIOR_TREES_CHECKBATTERY_H
+#ifndef BEHAVIOR_TREES_IS_BUMPED_H
+#define BEHAVIOR_TREES_IS_BUMPED_H
 
 #include "behaviortree_cpp_v3/behavior_tree.h"
 #include "behaviortree_cpp_v3/bt_factory.h"
 
 #include <string>
+#include "ros/ros.h"
+#include "kobuki_msgs/BumperEvent.h"
 
 namespace behavior_trees
 {
 
-class CheckBattery : public BT::ActionNodeBase
+class Is_bumped : public BT::ConditionNode
 {
   public:
-    explicit CheckBattery(const std::string& name, const BT::NodeConfiguration & config);
-
-    void halt();
-
-    BT::NodeStatus tick();
+    ros::NodeHandle n_;
+    explicit Is_bumped(const std::string& name, const BT::NodeConfiguration& config);
 
     static BT::PortsList providedPorts()
     {
         return { 
-          BT::OutputPort<float>("level"),
+          BT::OutputPort<ros::Time>("object1"),
           
         };
     }
 
+    void bumperCallback(const kobuki_msgs::BumperEvent::ConstPtr& msg);
+    BT::NodeStatus tick();
+  
   private:
-    int counter_;
+    bool pressed_;
+    ros::Subscriber sub_bumper_;
+    ros::Time press_ts_;
 };
 
 }  // namespace behavior_trees
 
-#endif  // BEHAVIOR_TREES_CHECKBATTERY_H
+#endif  // BEHAVIOR_TREES_IS_BUMPED_H

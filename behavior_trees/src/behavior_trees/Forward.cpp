@@ -13,38 +13,39 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef BEHAVIOR_TREES_CHECKBATTERY_H
-#define BEHAVIOR_TREES_CHECKBATTERY_H
+#include <string>
+
+#include "behavior_trees/Forward.h"
 
 #include "behaviortree_cpp_v3/behavior_tree.h"
 #include "behaviortree_cpp_v3/bt_factory.h"
 
-#include <string>
+#include "geometry_msgs/Twist.h"
+
+#include "ros/ros.h"
 
 namespace behavior_trees
 {
 
-class CheckBattery : public BT::ActionNodeBase
+Forward::Forward(const std::string& name, const BT::NodeConfiguration & config)
+: BT::ActionNodeBase(name, config)
 {
-  public:
-    explicit CheckBattery(const std::string& name, const BT::NodeConfiguration & config);
+  pub_vel_ = n_.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity",1);
+}
 
-    void halt();
+void
+Forward::halt()
+{
+  ROS_INFO("finished going forward");
+}
 
-    BT::NodeStatus tick();
-
-    static BT::PortsList providedPorts()
-    {
-        return { 
-          BT::OutputPort<float>("level"),
-          
-        };
-    }
-
-  private:
-    int counter_;
-};
+BT::NodeStatus
+Forward::tick()
+{
+  geometry_msgs::Twist cmd;
+  cmd.linear.x = GOING_FORWARD_VEL;
+  pub_vel_.publish(cmd);
+  return BT::NodeStatus::RUNNING;
+}
 
 }  // namespace behavior_trees
-
-#endif  // BEHAVIOR_TREES_CHECKBATTERY_H

@@ -18,14 +18,15 @@
 #include "behavior_trees/CheckBattery.h"
 
 #include "behaviortree_cpp_v3/behavior_tree.h"
+#include "behaviortree_cpp_v3/bt_factory.h"
 
 #include "ros/ros.h"
 
 namespace behavior_trees
 {
 
-CheckBattery::CheckBattery(const std::string& name)
-: BT::ActionNodeBase(name, {}), counter_(0)
+CheckBattery::CheckBattery(const std::string& name, const BT::NodeConfiguration & config)
+: BT::ActionNodeBase(name, config), counter_(0)
 {
 }
 
@@ -38,15 +39,11 @@ CheckBattery::halt()
 BT::NodeStatus
 CheckBattery::tick()
 {
+  setOutput<float>("level", 1.0f);
+
   ROS_INFO("CheckBattery tick");
 
   return BT::NodeStatus::SUCCESS;
 }
 
 }  // namespace behavior_trees
-
-#include "behaviortree_cpp_v3/bt_factory.h"
-BT_REGISTER_NODES(factory)
-{
-  factory.registerNodeType<behavior_trees::CheckBattery>("CheckBattery");
-}

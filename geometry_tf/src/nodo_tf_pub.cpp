@@ -42,18 +42,20 @@ geometry_msgs::TransformStamped generate_object()
   ay = 0.0;
   az = 2.0*M_PI * (rand_r(&seed)/static_cast<float>(RAND_MAX)) - M_PI;
 
+  //tipo de datos de tf2 con padre basefootprint
   tf2::Stamped<tf2::Transform> object;
   object.frame_id_ = "base_footprint";
   object.stamp_ = ros::Time::now();
 
-  object.setOrigin(tf2::Vector3(x, y, z));
+  object.setOrigin(tf2::Vector3(x, y, z));//decidimos la traslacion respecto a base_footprint en este caso
 
-  tf2::Quaternion q;
-  q.setRPY(ax, ay, az);
-  object.setRotation(q);
-
+  tf2::Quaternion q;//creo un quaternion
+  q.setRPY(ax, ay, az);//indico su posicion
+  object.setRotation(q);//indico que la rotacion de este frame esta indicado en el cuaternion.
+  
+  //pasamos de tipo de dato de tf2 a mensaje de ross   
   geometry_msgs::TransformStamped object_msg = tf2::toMsg(object);
-  object_msg.child_frame_id = "object";
+  object_msg.child_frame_id = "object";//indicamos que la infomacion de los mensajes del hijo estan en object
 
   return object_msg;
 }
@@ -63,6 +65,8 @@ int main(int argc, char **argv)
   ros::init(argc, argv, "tf_pub");
   ros::NodeHandle n;
 
+  //tambien se puede crear un tf2_ros::StaticTransformBroadcaster br para que se publice en tf2 static. 
+  //en tf2, los frames publicados a los 10 segundos por convenio se suelen olvidar, en statictf2, no
   tf2_ros::TransformBroadcaster br;
 
   ros::Time obj_ts = ros::Time::now();
@@ -78,16 +82,17 @@ int main(int argc, char **argv)
       obj_ts = ros::Time::now();
 
       object_msg = generate_object();
-    }
 
-    try
-    {
-      object_msg.header.stamp = ros::Time::now();
-      br.sendTransform(object_msg);
-    }
-    catch(tf2::TransformException &exception)
-    {
-      ROS_ERROR("%s", exception.what());
+      //si pones el try-catch  dentro del if, se publicara la transformada cada 10 segundos y no con cada iteracion del bucle
+      try
+      {
+       object_msg.header.stamp = ros::Time::now();
+       br.sendTransform(object_msg);
+      }
+      catch(tf2::TransformException &exception)
+      {
+        ROS_ERROR("%s", exception.what());
+      }
     }
 
     ros::spinOnce();

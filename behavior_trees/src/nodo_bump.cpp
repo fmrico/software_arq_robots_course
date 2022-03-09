@@ -16,6 +16,10 @@
 #include "behavior_trees/CheckBattery.h"
 #include "behavior_trees/OpenGripper.h"
 #include "behavior_trees/CloseGripper.h"
+#include "behavior_trees/Back.h"
+#include "behavior_trees/Turn.h"
+#include "behavior_trees/Is_bumped.h"
+#include "behavior_trees/Forward.h"
 
 #include "ros/ros.h"
 #include "behaviortree_cpp_v3/behavior_tree.h"
@@ -37,13 +41,17 @@ int main(int argc, char **argv)
   factory.registerNodeType<behavior_trees::CheckBattery>("CheckBattery");
   factory.registerNodeType<behavior_trees::OpenGripper>("OpenGripper");
   factory.registerNodeType<behavior_trees::CloseGripper>("CloseGripper");
+  factory.registerNodeType<behavior_trees::Back>("Back");
+  factory.registerNodeType<behavior_trees::Is_bumped>("Is_bumped");
+  factory.registerNodeType<behavior_trees::Turn>("Turn");
+  factory.registerNodeType<behavior_trees::Forward>("Forward");
 
   auto blackboard = BT::Blackboard::create();//creo la blackboard
 
   blackboard->set("object", "cup");
 
   std::string pkgpath = ros::package::getPath("behavior_trees");//buscas el behavior tree creado con xml
-  std::string xml_file = pkgpath + "/behavior_trees_xml/tree_1.xml";
+  std::string xml_file = pkgpath + "/behavior_trees_xml/tree_bump.xml";
 
   BT::Tree tree = factory.createTreeFromFile(xml_file, blackboard);//creas el arbol
   auto publisher_zmq = std::make_shared<BT::PublisherZMQ>(tree, 10, 1666, 1667);

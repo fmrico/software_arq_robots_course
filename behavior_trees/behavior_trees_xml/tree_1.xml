@@ -2,11 +2,11 @@
      <BehaviorTree ID="MainTree">
         <Sequence name="root_sequence">
             <CheckBattery   name="battery_ok_1"/>
-            <ApproachObject name="approach" object="{object}"/>
-            <CheckBattery   name="battery_ok_2"/>
-            <OpenGripper    name="open_gripper"/>
+            <ApproachObject name="approach" object="{o1}"/>
+            <CheckBattery   name="battery_ok_2" level="{battlevel}"/>
+            <OpenGripper    name="open_gripper" battery="{battlevel}"/>
             <CheckBattery   name="battery_ok_3"/>
-            <ApproachObject name="approach_object"  object="{object}"/>
+            <ApproachObject name="approach_object"  object="{o1}"/>
             <CheckBattery   name="battery_ok_4"/>
             <CloseGripper   name="close_gripper"/>
         </Sequence>

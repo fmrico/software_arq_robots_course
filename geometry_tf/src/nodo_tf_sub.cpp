@@ -31,12 +31,13 @@ int main(int argc, char **argv)
   ros::NodeHandle n;
 
   tf2_ros::Buffer buffer;
-  tf2_ros::TransformListener listener(buffer);
+  tf2_ros::TransformListener listener(buffer);//el listener vale tanto como para tf2 como para static tf2
 
   ros::Rate loop_rate(1);
 
   while (ros::ok())
   {
+    //Importante estas nomenclaturas al crear los objetos para poder tratar bien las transformadas
     geometry_msgs::TransformStamped bf2odom_msg;
     geometry_msgs::TransformStamped odom2bf_msg;
     geometry_msgs::TransformStamped odom2obj_msg;
@@ -52,6 +53,9 @@ int main(int argc, char **argv)
 
     std::string error;
 
+  //si existe transformacion de basefootprint a odom en el tiempo 0, es decir, la ultima lectura obtenida esto es muy util por ejemlo ya que podemos poner
+  //la cabecera del laser por ejemplo, y cooncordar la hora de la lectura del laser, con la transformada. el campo ros::duration indica durante cuanto tiempo
+  //quieres que mire si existe dicha transformada o no.
     if (buffer.canTransform("base_footprint", "odom", ros::Time(0), ros::Duration(0.1), &error))
     {
       bf2odom_msg = buffer.lookupTransform("base_footprint", "odom", ros::Time(0));
@@ -133,6 +137,8 @@ int main(int argc, char **argv)
       ROS_ERROR("%s", error.c_str());
     }
 
+    //regla memotecnica:
+    //A2B = A2F*F2B = B2A^(-1)
     bf2obj = bf2odom * odom2obj;
 
     ROS_INFO("base_footprint -> object  [%lf, %lf, %lf] %lf ago",

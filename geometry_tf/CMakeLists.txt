@@ -33,11 +33,16 @@ add_executable(nodo_tf_pub
 	src/nodo_tf_pub.cpp
 )
 
+add_executable(nodo_tf_sub_rgbd 
+	src/nodo_tf_sub_rgbd.cpp
+)
+
 add_executable(nodo_tf_sub 
 	src/nodo_tf_sub.cpp
 )
 
 target_link_libraries(nodo_tf_pub ${LINK_LIBS})
+target_link_libraries(nodo_tf_sub_rgbd ${LINK_LIBS})
 target_link_libraries(nodo_tf_sub ${LINK_LIBS})
 
 roslint_cpp(

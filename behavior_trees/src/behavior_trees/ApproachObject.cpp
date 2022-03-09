@@ -18,8 +18,8 @@
 #include "behavior_trees/ApproachObject.h"
 
 #include "behaviortree_cpp_v3/behavior_tree.h"
+#include "behaviortree_cpp_v3/bt_factory.h"
 
-#include "geometry_msgs/Twist.h"
 #include "ros/ros.h"
 
 namespace behavior_trees
@@ -28,7 +28,6 @@ namespace behavior_trees
 ApproachObject::ApproachObject(const std::string& name, const BT::NodeConfiguration & config)
 : BT::ActionNodeBase(name, config), counter_(0)
 {
-  vel_pub_ = nh_.advertise<geometry_msgs::Twist>("/cmd_vel", 1);
 }
 
 void
@@ -45,30 +44,21 @@ ApproachObject::tick()
     ROS_INFO("First time in ApproachObject");
   }
 
-  std::string object = getInput<std::string>("object").value();
+  std::string object = "hola";
+  if(getInput<std::string>("object").has_value()){
+    object = getInput<std::string>("object").value();
+  }
+
   ROS_INFO("ApproachObject [%s] tick %d", object.c_str(), counter_);
 
-  if (counter_++ < 50)
+  if (counter_++ < 5)
   {
-    geometry_msgs::Twist msg;
-    msg.linear.x = 0.4;
-
-    vel_pub_.publish(msg);
     return BT::NodeStatus::RUNNING;
   }
   else
   {
-    geometry_msgs::Twist msg;
-    vel_pub_.publish(msg);
-
     return BT::NodeStatus::SUCCESS;
   }
 }
 
 }  // namespace behavior_trees
-
-#include "behaviortree_cpp_v3/bt_factory.h"
-BT_REGISTER_NODES(factory)
-{
-  factory.registerNodeType<behavior_trees::ApproachObject>("ApproachObject");
-}

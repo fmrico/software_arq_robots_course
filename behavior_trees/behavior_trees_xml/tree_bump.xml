@@ -1,0 +1,15 @@
+<root main_tree_to_execute="MainTree">
+    <BehaviorTree ID="MainTree">
+        <ReactiveSequence>
+            <Fallback>
+                 <Is_bumped name="is_bumped" object1="{back}"/>
+                <Sequence>
+                    <Back name="back" object1="{back}" object2="{turn}"/>
+                    <Turn name="turn" object2="{turn}"/>
+                </Sequence>
+            </Fallback>
+            <Forward name="forward"/>
+        </ReactiveSequence>
+    </BehaviorTree>
+</root>
+

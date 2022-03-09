@@ -1,7 +1,7 @@
 
 <launch>
 
-  <arg name="world_name" default="$(find robots)/worlds/GrannyAnnie.world"/>
+  <arg name="world_name" default="$(find robots)/worlds/robocupspl.world"/>
   <arg name="posx" value="0.0"/>
   <arg name="posy" value="0.0"/>
   <arg name="posYaw" value="3.1415"/>

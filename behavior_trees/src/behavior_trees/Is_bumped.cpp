@@ -13,38 +13,44 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef BEHAVIOR_TREES_CHECKBATTERY_H
-#define BEHAVIOR_TREES_CHECKBATTERY_H
+#include <string>
+
+#include "behavior_trees/Is_bumped.h"
 
 #include "behaviortree_cpp_v3/behavior_tree.h"
 #include "behaviortree_cpp_v3/bt_factory.h"
 
-#include <string>
+#include "geometry_msgs/Twist.h"
+#include "ros/ros.h"
 
 namespace behavior_trees
 {
 
-class CheckBattery : public BT::ActionNodeBase
+Is_bumped::Is_bumped(const std::string& name, const BT::NodeConfiguration & config)
+: BT::ConditionNode(name, config)
 {
-  public:
-    explicit CheckBattery(const std::string& name, const BT::NodeConfiguration & config);
+  sub_bumper_ = n_.subscribe("/mobile_base/events/bumper", 1, &Is_bumped::bumperCallback, this);
+}
 
-    void halt();
+void
+Is_bumped::bumperCallback(const kobuki_msgs::BumperEvent::ConstPtr& msg)
+{
+  pressed_ = msg->state == kobuki_msgs::BumperEvent::PRESSED;
+}
 
-    BT::NodeStatus tick();
-
-    static BT::PortsList providedPorts()
+BT::NodeStatus
+Is_bumped::tick()
+{
+  if (!pressed_)
+      {
+        press_ts_ = ros::Time::now();
+        setOutput<ros::Time>("object1",press_ts_);
+        return BT::NodeStatus::SUCCESS;
+      }
+    else  
     {
-        return { 
-          BT::OutputPort<float>("level"),
-          
-        };
+      return BT::NodeStatus::FAILURE;
     }
-
-  private:
-    int counter_;
-};
+}
 
 }  // namespace behavior_trees
-
-#endif  // BEHAVIOR_TREES_CHECKBATTERY_H

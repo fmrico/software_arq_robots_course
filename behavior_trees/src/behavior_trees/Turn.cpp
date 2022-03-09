@@ -15,40 +15,49 @@
 
 #include <string>
 
-#include "behavior_trees/CloseGripper.h"
+#include "behavior_trees/Turn.h"
 
 #include "behaviortree_cpp_v3/behavior_tree.h"
 #include "behaviortree_cpp_v3/bt_factory.h"
+
+#include "geometry_msgs/Twist.h"
 
 #include "ros/ros.h"
 
 namespace behavior_trees
 {
 
-CloseGripper::CloseGripper(const std::string& name)
-: BT::ActionNodeBase(name, {}), counter_(0)
+Turn::Turn(const std::string& name, const BT::NodeConfiguration & config)
+: BT::ActionNodeBase(name, config)
 {
+  pub_vel_ = n_.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity",1);
 }
 
 void
-CloseGripper::halt()
+Turn::halt()
 {
-  ROS_INFO("CloseGripper halt");
+  ROS_INFO("finished turning");
 }
 
 BT::NodeStatus
-CloseGripper::tick()
+Turn::tick()
 {
-  ROS_INFO("CloseGripper tick %d", counter_);
-
-  if (counter_++ < 5)
-  {
-    return BT::NodeStatus::RUNNING;
+  ros::Time turn_ts_;
+  if(getInput<ros::Time>("object2").has_value()){
+    turn_ts_ = getInput<ros::Time>("object2").value();
   }
-  else
-  {
-    return BT::NodeStatus::SUCCESS;
-  }
+  geometry_msgs::Twist cmd;
+  cmd.angular.z = TURNING_VEL;
+  pub_vel_.publish(cmd);
+  if ((ros::Time::now()-turn_ts_).toSec() > TURNING_TIME )
+      {
+        ROS_INFO("TURNING -> GOING_FORWARD");
+        return BT::NodeStatus::SUCCESS;
+      }
+    else  
+    {
+      return BT::NodeStatus::RUNNING;
+    }
 }
 
 }  // namespace behavior_trees
