@@ -14,6 +14,13 @@ int main(int argc, char **argv)
 
   ros::NodeHandle n;
   ros::ServiceClient client = n.serviceClient<softarq_msgs::Distance>("distance");
+
+  ROS_INFO("Waiting for server");
+  while (!client.waitForExistence(ros::Duration(1.0))) {
+    ROS_INFO("Still waiting");
+  }
+  ROS_INFO("Server ready");
+
   softarq_msgs::Distance srv;
 
   srv.request.a.x = atof(argv[1]);

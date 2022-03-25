@@ -20,6 +20,7 @@ public:
     action_name_(name)
   {
     as_.start();
+    ROS_INFO("Server Ready");
   }
 
   ~SequenceAction(void)
@@ -28,6 +29,7 @@ public:
 
   void executeCB(const softarq_msgs::SequenceGoalConstPtr &goal)
   {
+    ROS_INFO("Server Ready");
     ros::Rate r(10);
     bool success = true;
 

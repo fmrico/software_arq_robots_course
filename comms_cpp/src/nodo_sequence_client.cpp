@@ -10,9 +10,9 @@ public:
 	MyNode()
 	: ac("sequence", true)
 	{
-		//ROS_INFO("Waiting for action server to start.");
+		ROS_INFO("Waiting for action server to start.");
 		ac.waitForServer();
-		//ROS_INFO("Action server started, sending goal.");
+		ROS_INFO("Action server started, sending goal.");
 	}
 
 	void doWork(long int until)
@@ -24,6 +24,8 @@ public:
 				boost::bind(&MyNode::doneCb, this, _1, _2),
 				Client::SimpleActiveCallback(),
 				boost::bind(&MyNode::feedbackCb, this, _1));
+
+    ROS_INFO("Request sent.");
 
 	}
 
