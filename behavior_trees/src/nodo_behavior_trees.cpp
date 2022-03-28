@@ -36,12 +36,13 @@ int main(int argc, char **argv)
   factory.registerFromPlugin(loader.getOSName("asr_check_battery_bt_node"));
   factory.registerFromPlugin(loader.getOSName("asr_close_gripper_bt_node"));
   factory.registerFromPlugin(loader.getOSName("asr_open_gripper_bt_node"));
+  factory.registerFromPlugin(loader.getOSName("asr_move_bt_node"));
 
   auto blackboard = BT::Blackboard::create();
   blackboard->set("object", "cup");
 
   std::string pkgpath = ros::package::getPath("behavior_trees");
-  std::string xml_file = pkgpath + "/behavior_trees_xml/tree_1.xml";
+  std::string xml_file = pkgpath + "/behavior_trees_xml/tree_4.xml";
 
   BT::Tree tree = factory.createTreeFromFile(xml_file, blackboard);
   auto publisher_zmq = std::make_shared<BT::PublisherZMQ>(tree, 10, 1666, 1667);

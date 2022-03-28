@@ -13,29 +13,34 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef BEHAVIOR_TREES_OPENGRIPPER_H
-#define BEHAVIOR_TREES_OPENGRIPPER_H
+#ifndef BEHAVIOR_TREES_CHECKBATTERY_H
+#define BEHAVIOR_TREES_CHECKBATTERY_H
 
 #include "behaviortree_cpp_v3/behavior_tree.h"
 #include "behaviortree_cpp_v3/bt_factory.h"
+
+#include <move_base_msgs/MoveBaseAction.h>
+#include "behavior_trees/BTNavAction.h""
 
 #include <string>
 
 namespace behavior_trees
 {
 
-class OpenGripper : public BT::ActionNodeBase
+class Move : public BTNavAction
 {
   public:
-    explicit OpenGripper(const std::string& name, const BT::NodeConfiguration & config);
+    explicit Move(const std::string& name,
+    const std::string & action_name,
+    const BT::NodeConfiguration & config);
 
-    void halt();
+    void on_halt() override;
+    BT::NodeStatus on_tick() override;;
+    void on_start() override;
+    void on_feedback(const move_base_msgs::MoveBaseFeedbackConstPtr& feedback) override;
 
-    BT::NodeStatus tick();
-
-    static BT::PortsList providedPorts()
-    {
-        return { BT::InputPort<float>("battery")};
+    static BT::PortsList providedPorts() {
+      return {};
     }
 
   private:
@@ -44,4 +49,4 @@ class OpenGripper : public BT::ActionNodeBase
 
 }  // namespace behavior_trees
 
-#endif  // BEHAVIOR_TREES_OPENGRIPPER_H
+#endif  // BEHAVIOR_TREES_CHECKBATTERY_H

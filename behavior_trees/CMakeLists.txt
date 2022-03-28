@@ -20,10 +20,13 @@ find_package(catkin REQUIRED COMPONENTS
   geometry_msgs
   behaviortree_cpp_v3
   roslint
+  actionlib
+  actionlib_msgs
+  move_base_msgs
 )
 
 catkin_package(
-CATKIN_DEPENDS roscpp std_msgs behaviortree_cpp_v3
+CATKIN_DEPENDS roscpp std_msgs behaviortree_cpp_v3 actionlib_msgs move_base_msgs
 )
 
 include_directories(
@@ -32,11 +35,13 @@ include_directories(
   ${ZMQ_INCLUDE_DIRS}
 )
 
+add_library(asr_move_bt_node SHARED src/behavior_trees/Move.cpp)
 add_library(asr_approach_object_bt_node SHARED src/behavior_trees/ApproachObject.cpp)
 add_library(asr_check_battery_bt_node SHARED src/behavior_trees/CheckBattery.cpp)
 add_library(asr_close_gripper_bt_node SHARED src/behavior_trees/CloseGripper.cpp)
 add_library(asr_open_gripper_bt_node SHARED src/behavior_trees/OpenGripper.cpp)
 list(APPEND plugin_libs
+  asr_move_bt_node
   asr_approach_object_bt_node
   asr_check_battery_bt_node
   asr_close_gripper_bt_node
