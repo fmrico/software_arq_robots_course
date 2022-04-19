@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>plansys2_tools</name>
+  <version>2.0.1</version>
+  
+  <description>A set of tools for monitoring ROS2 Planning System</description>
+
+  <maintainer email="fmrico@gmail.com">Francisco Martin Rico</maintainer>
+ 
+  <license>Apache License, Version 2.0</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>roscpp</depend>
+  <depend>rqt_gui</depend>
+  <depend>rqt_gui_cpp</depend>
+  <depend>qt_gui_cpp</depend>
+
+  <export>
+    <rqt_gui plugin="${prefix}/plugin_performers.xml"/>
+  </export>
+</package>
